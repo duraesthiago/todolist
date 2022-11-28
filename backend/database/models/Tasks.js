@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
 
     let task = sequelize.define(
-        "Task",
+        "Tasks",
         {
             idtask: {
                 type: DataTypes.INTEGER,
@@ -13,11 +13,14 @@ module.exports = (sequelize, DataTypes) => {
             },
             user_id: {
                 type: DataTypes.INTEGER
+            },
+            task_done: {
+                type: DataTypes.BOOLEAN
             }
         },
         {
             tableName: "tasks",
-            timestamps: true,
+            timestamps: false,
             paranoid: false
         }
     )
