@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 import styles from './login.module.css';
 import logo from '../../assets/logo.svg';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const LOCAL_STORAGE_KEY = 'todo:users';
 
 export function Login() {
   const navigate = useNavigate();
+
+  // Initial Definitions
+  const urlBase = 'http://localhost:3000/auth/login';
   const intialValues = { email: '', password: '' };
 
   const [formValues, setFormValues] = useState(intialValues);
@@ -21,8 +25,44 @@ export function Login() {
     return savedUsers;
   }
 
-  const submit = () => {
-    navigate('/task');
+  const submit = async () => {
+    let response = await axios
+      .post(urlBase, {
+        email: formValues.email,
+        password: formValues.password,
+      })
+      .then(function (response) {
+        switch (response.status) {
+          case 200:
+            // Capturar o token respondido pelo servidor
+            let responseContent = response.data;
+
+            // Salvar o token (sessionStorage)
+            sessionStorage.setItem('token', responseContent.token);
+            sessionStorage.setItem(
+              'user',
+              JSON.stringify(responseContent.userExist)
+            );
+            // Carregar página inicial
+            navigate('/task');
+            break;
+
+          case 409:
+            alert('E-mail já cadastrado.');
+            break;
+
+          case 422:
+            alert('Senha preenchida incorretamente.');
+            break;
+
+          default:
+            alert(`Erro inesperado: ${response.status}`);
+            break;
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   //input change handler
@@ -54,7 +94,6 @@ export function Login() {
     } else if (values.password.length < 4) {
       errors.password = 'Senha deve ter mais de 4 caracteres';
     }
-
     return errors;
   };
 

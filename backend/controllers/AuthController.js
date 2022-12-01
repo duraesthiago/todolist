@@ -1,11 +1,14 @@
 const { User, Tasks } = require("../database/models");
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 
 const controller = {
     create: async (req, res) => {
 
         let { name, email, password } = req.body;
+        console.log(req.body.email);
 
         // Verificar se existe um usuario com este email
         const userExist = await User.findOne({
@@ -32,10 +35,11 @@ const controller = {
         );
 
         // Gerar um TOKEN (jwt - JSON Web Token) para o usuário
+        const token = jwt.sign(newUser.toJSON(), process.env.TOKEN_SECRET)
 
         // E retornar o token e as informações deste usuário
 
-        return res.status(200).json({ sucess: "Usuário criado com sucesso" });
+        return res.status(200).json({ sucess: "Usuário criado com sucesso", token });
     },
 
     login: async (req, res) => {
@@ -53,12 +57,15 @@ const controller = {
             return res.status(409).json({ err: 'Usuário não cadastrado' });
         }
 
-        console.log(userExist.password);
-
         const comparePassword = bcrypt.compareSync(password, userExist.password);
 
         if (comparePassword) {
-            return res.status(200).json({ sucess: 'Login realizado com sucesso' });
+            const user = {
+                email: userExist.email,
+                password: userExist.password
+            }
+            const token = jwt.sign(user, process.env.TOKEN_SECRET);
+            return res.status(200).json({ sucess: 'Login realizado com sucesso', userExist, token });
         } else {
             return res.status(409).json({ err: 'Senha errada!' });
         }

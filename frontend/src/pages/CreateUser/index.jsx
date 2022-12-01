@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import styles from './createUser.module.css';
 import logo from '../../assets/logo.svg';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const LOCAL_STORAGE_KEY = 'todo:users';
 
 export function CreateUser() {
   const navigate = useNavigate();
 
+  // Initial Definitions
+  const urlBase = 'http://localhost:3000/auth/';
   const intialValues = { email: '', password: '' };
 
   const [formValues, setFormValues] = useState(intialValues);
@@ -19,7 +22,28 @@ export function CreateUser() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newUser));
   }
 
-  const submit = () => {
+  const submit = async () => {
+    let response = await axios
+      .post(urlBase, {
+        name: formValues.name,
+        email: formValues.email,
+        password: formValues.password,
+      })
+      .then(function (response) {
+        let responseContent = response.data;
+        // Salvar o token (sessionStorage)
+        sessionStorage.setItem('token', responseContent.token);
+        sessionStorage.setItem(
+          'user',
+          JSON.stringify(responseContent.userExist)
+        );
+        // Carregar página inicial
+        navigate('/task');
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
     navigate('/task');
   };
 
@@ -31,12 +55,10 @@ export function CreateUser() {
 
   //form submission handler
   const handleSubmit = (e) => {
-    setUserAndSave([
-      {
-        id: crypto.randomUUID(),
-        ...formValues,
-      },
-    ]);
+    setUserAndSave({
+      //id: crypto.randomUUID(),
+      ...formValues,
+    });
     e.preventDefault();
     setFormErrors(validate(formValues));
     setIsSubmitting(true);
@@ -71,11 +93,23 @@ export function CreateUser() {
   return (
     <div className={styles.createUser}>
       <img className={styles.img} src={logo} alt="" />
-      <h1 className={styles.formInput}>Criar usuário</h1>
+      <h1 className={styles.formInput}>Crie o seu usuário...</h1>
       {Object.keys(formErrors).length === 0 && isSubmitting && (
         <span>Login ok!</span>
       )}
       <form onSubmit={handleSubmit} noValidate>
+        <div className={styles.formInput}>
+          <label htmlFor="name"></label>
+          <input
+            type="name"
+            name="name"
+            id="name"
+            placeholder="Digite o seu nome..."
+            value={formValues.name}
+            onChange={handleChange}
+          />
+        </div>
+
         <div className={styles.formInput}>
           <label htmlFor="email"></label>
           <input
