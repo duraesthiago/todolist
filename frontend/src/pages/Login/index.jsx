@@ -17,16 +17,8 @@ export function Login() {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  function loadSavedUsers() {
-    const savedUsers = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (savedUsers) {
-      setTasks(JSON.parse(savedUsers));
-    }
-    return savedUsers;
-  }
-
-  const submit = async () => {
-    let response = await axios
+  const submit = () => {
+    let responseLogin = axios
       .post(urlBase, {
         email: formValues.email,
         password: formValues.password,
@@ -43,6 +35,7 @@ export function Login() {
               'user',
               JSON.stringify(responseContent.userExist)
             );
+
             // Carregar página inicial
             navigate('/task');
             break;

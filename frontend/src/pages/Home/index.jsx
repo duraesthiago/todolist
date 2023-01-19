@@ -18,31 +18,30 @@ const urlBase = 'http://localhost:3000';
 function Home() {
   const [tasks, setTasks] = useState([]);
 
-  // function loadSavedTasks() {
-  //   const savedTasks = localStorage.getItem(LOCAL_STORAGE_KEY);
-  //   if (savedTasks) {
-  //     setTasks(JSON.parse(savedTasks));
-  //   }
-  // }
-
   function loadSavedTasks() {
     let headers = {
       'Content-type': 'application/json; charset=UTF-8',
       authorization: `bearer ${sessionStorage.getItem('token')}`,
     };
 
+    let userLogged = JSON.parse(sessionStorage.user);
+
     const savedTasks = axios
-      .get(`${urlBase}/tasks/1`, {
+      .get(`${urlBase}/tasks/${userLogged.idusers}`, {
         headers: headers,
       })
       .then((response) => {
-        console.log(response.data);
+        console.log(
+          '🚀 ~ file: index.jsx:36 ~ .then ~ response.data',
+          response.data
+        );
         setTasks(response.data);
       })
       .catch(function (error) {
         // handle error
         console.log(error);
       });
+    return savedTasks;
   }
 
   useEffect(() => {
@@ -54,15 +53,31 @@ function Home() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTasks));
   }
 
+  // function addTask(taskText) {
+  //   setTasksAndSave([
+  //     ...tasks,
+  //     {
+  //       id: crypto.randomUUID(),
+  //       title: taskText,
+  //       isComplete: false,
+  //     },
+  //   ]);
+  // }
+
   function addTask(taskText) {
-    setTasksAndSave([
-      ...tasks,
-      {
-        id: crypto.randomUUID(),
-        title: taskText,
-        isComplete: false,
-      },
-    ]);
+    let newTask = axios
+      .post(`${urlBase}/tasks/`, {
+        task_text: taskText,
+        users_idusers: userLogged.idusers,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    setTasksAndSave([...tasks, newTask]);
   }
 
   function toggleTaskCompletedById(taskId) {
