@@ -3,10 +3,16 @@ const { Tasks, User } = require('../database/models');
 const controller = {
     index: async (req, res) => {
         let userId = req.params.id;
-        const tasks = await User.findByPk(userId, { include: 'tasks' });
+        const tasks = await Tasks.findAll({
+            raw: true, where: {
+                users_idusers: userId
+            }
+        });
         if (tasks === null) {
             console.log('Not found!');
         }
+        console.log(req.user);
+
         res.send(tasks);
     },
     store: async (req, res) => {

@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     let task = sequelize.define(
         "Tasks",
         {
-            idtask: {
+            idtasks: {
                 type: DataTypes.INTEGER,
                 autoIncrement: true,
                 primaryKey: true
@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
             task_text: {
                 type: DataTypes.STRING,
             },
-            user_id: {
+            users_idusers: {
                 type: DataTypes.INTEGER
             },
             task_done: {
@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     )
 
     task.associate = (models) => {
-        task.belongsTo(models.User, { foreignKey: 'user_id', as: 'owner' });
+        task.belongsTo(models.User, { foreignKey: 'users_idusers', as: 'owner' });
     }
 
     return task;

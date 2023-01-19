@@ -4,22 +4,45 @@ import {
   Routes,
   Route,
   Link,
+  useLocation,
 } from 'react-router-dom';
 import { Login } from '../Login';
 import { Header } from '../../components/Header';
 import { Tasks } from '../../components/Tasks';
 import { CreateUser } from '../CreateUser';
+import axios from 'axios';
 
 const LOCAL_STORAGE_KEY = 'todo:savedTasks';
+const urlBase = 'http://localhost:3000';
 
 function Home() {
   const [tasks, setTasks] = useState([]);
 
+  // function loadSavedTasks() {
+  //   const savedTasks = localStorage.getItem(LOCAL_STORAGE_KEY);
+  //   if (savedTasks) {
+  //     setTasks(JSON.parse(savedTasks));
+  //   }
+  // }
+
   function loadSavedTasks() {
-    const savedTasks = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (savedTasks) {
-      setTasks(JSON.parse(savedTasks));
-    }
+    let headers = {
+      'Content-type': 'application/json; charset=UTF-8',
+      authorization: `bearer ${sessionStorage.getItem('token')}`,
+    };
+
+    const savedTasks = axios
+      .get(`${urlBase}/tasks/1`, {
+        headers: headers,
+      })
+      .then((response) => {
+        console.log(response.data);
+        setTasks(response.data);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
   }
 
   useEffect(() => {

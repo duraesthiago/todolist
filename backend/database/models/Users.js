@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     let user = sequelize.define(
         "User", // Nome do model
         {
-            iduser: {
+            idusers: {
                 type: DataTypes.INTEGER,
                 autoIncrement: true,
                 allowNull: false,
@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     );
 
     user.associate = (models) => {
-        user.hasMany(models.Tasks, { foreignKey: 'user_id', as: 'tasks' });
+        user.hasMany(models.Tasks, { foreignKey: 'users_idusers', as: 'tasks' });
     }
 
     return user;

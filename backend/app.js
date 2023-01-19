@@ -7,6 +7,8 @@ const cors = require('cors');
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const tasksRouter = require('./routes/tasks');
+const CheckToken = require('./middlewares/checkToken');
+const AuthToken = require('./middlewares/AuthToken');
 
 const app = express();
 
@@ -19,6 +21,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
-app.use('/tasks', tasksRouter);
+app.use('/tasks', CheckToken, AuthToken, tasksRouter);
 
 module.exports = app;

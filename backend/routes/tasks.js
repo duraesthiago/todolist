@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const tasksController = require("../controllers/TasksController");
 
-router.get('/', tasksController.index);
+router.get('/:id', tasksController.index);
 router.post('/', tasksController.store);
 router.delete('/:id', tasksController.delete);
 router.put('/:id', tasksController.update);

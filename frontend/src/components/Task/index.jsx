@@ -7,16 +7,16 @@ export function Task({ task, onComplete, onDelete }) {
     <div className={styles.task}>
       <button
         className={styles.checkContainer}
-        onClick={() => onComplete(task.id)}
+        onClick={() => onComplete(task.idtasks)}
       >
         {task.isComplete ? <BsFillCheckCircleFill /> : <div />}
       </button>
       <p className={task.isComplete ? styles.textCompleted : ''}>
-        {task.title}
+        {task.task_text}
       </p>
       <button
         className={styles.deleteButton}
-        onClick={() => onDelete(task.id)}
+        onClick={() => onDelete(task.idtasks)}
       >
         <TbTrash size={20} />
       </button>

@@ -24,6 +24,7 @@ const controller = {
         // Criptografar a senha digitada
         password = bcrypt.hashSync(password, 10);
 
+
         // Criar o novo usuário
 
         let newUser = await User.create(
