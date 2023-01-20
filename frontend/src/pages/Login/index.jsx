@@ -33,7 +33,7 @@ export function Login() {
             sessionStorage.setItem('token', responseContent.token);
             sessionStorage.setItem(
               'user',
-              JSON.stringify(responseContent.userExist)
+              JSON.stringify(responseContent.userLogged)
             );
 
             // Carregar página inicial

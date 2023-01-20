@@ -39,7 +39,11 @@ const controller = {
 
         // E retornar o token e as informações deste usuário
 
-        return res.status(200).json({ sucess: "Usuário criado com sucesso", token });
+        userLogged = newUser;
+        delete userLogged.password;
+
+
+        return res.status(200).json({ sucess: "Usuário criado com sucesso", userLogged, token });
     },
 
     login: async (req, res) => {
@@ -65,7 +69,11 @@ const controller = {
                 password: userExist.password
             }
             const token = jwt.sign(user, process.env.TOKEN_SECRET);
-            return res.status(200).json({ sucess: 'Login realizado com sucesso', userExist, token });
+
+            userLogged = userExist;
+            delete userLogged.password;
+
+            return res.status(200).json({ sucess: 'Login realizado com sucesso', userLogged, token });
         } else {
             return res.status(409).json({ err: 'Senha errada!' });
         }

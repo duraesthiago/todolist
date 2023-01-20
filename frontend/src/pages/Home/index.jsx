@@ -43,6 +43,7 @@ function Home() {
         // handle error
         console.log(error);
       });
+
     return savedTasks;
   }
 
