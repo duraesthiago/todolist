@@ -79,6 +79,7 @@ function Home() {
       });
 
     setTasksAndSave([...tasks, newTask]);
+    loadSavedTasks();
   }
 
   function toggleTaskCompletedById(taskId) {
@@ -111,6 +112,7 @@ function Home() {
       .catch(function (error) {
         console.log(error);
       });
+    loadSavedTasks();
   }
 
   function deleteTaskById(taskId) {
