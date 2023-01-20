@@ -72,14 +72,13 @@ function Home() {
         }
       )
       .then(function (response) {
+        setTasksAndSave([...tasks, newTask]);
+        loadSavedTasks();
         console.log(response);
       })
       .catch(function (error) {
         console.log(error);
       });
-
-    setTasksAndSave([...tasks, newTask]);
-    loadSavedTasks();
   }
 
   function toggleTaskCompletedById(taskId) {
@@ -108,11 +107,11 @@ function Home() {
       )
       .then(function (response) {
         console.log(response);
+        loadSavedTasks();
       })
       .catch(function (error) {
         console.log(error);
       });
-    loadSavedTasks();
   }
 
   function deleteTaskById(taskId) {
@@ -133,11 +132,11 @@ function Home() {
       )
       .then(function (response) {
         console.log(response);
+        loadSavedTasks();
       })
       .catch(function (error) {
         console.log(error);
       });
-    loadSavedTasks();
   }
 
   return (

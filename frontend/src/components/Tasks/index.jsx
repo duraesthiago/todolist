@@ -6,6 +6,7 @@ export function Tasks({ tasks, onComplete, onDelete }) {
   const tasksCompleted = tasks.filter(
     (task) => task.task_done
   ).length;
+  console.log(tasks);
 
   return (
     <section className={styles.tasks}>
