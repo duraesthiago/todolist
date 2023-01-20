@@ -25,11 +25,7 @@ const controller = {
     },
     delete: async (req, res) => {
         idTask = req.body.idtasks;
-        const taskDeleted = await Tasks.findByPk({
-            where: {
-                idtasks: idTask
-            },
-        });
+        const taskDeleted = await Tasks.findByPk(idTask);
 
         await taskDeleted.destroy();
 

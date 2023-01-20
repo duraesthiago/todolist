@@ -33,10 +33,6 @@ function Home() {
         headers: headers,
       })
       .then((response) => {
-        // console.log(
-        //   '🚀 ~ file: index.jsx:36 ~ .then ~ response.data',
-        //   response.data
-        // );
         setTasks(response.data);
       })
       .catch(function (error) {
