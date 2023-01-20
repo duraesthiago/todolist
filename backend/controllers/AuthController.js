@@ -8,7 +8,6 @@ const controller = {
     create: async (req, res) => {
 
         let { name, email, password } = req.body;
-        console.log(req.body.email);
 
         // Verificar se existe um usuario com este email
         const userExist = await User.findOne({

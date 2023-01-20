@@ -24,17 +24,19 @@ function Home() {
       authorization: `bearer ${sessionStorage.getItem('token')}`,
     };
 
-    let userLogged = JSON.parse(sessionStorage.user);
+    let userLogged = sessionStorage.user
+      ? JSON.parse(sessionStorage.user)
+      : '';
 
     const savedTasks = axios
       .get(`${urlBase}/tasks/${userLogged.idusers}`, {
         headers: headers,
       })
       .then((response) => {
-        console.log(
-          '🚀 ~ file: index.jsx:36 ~ .then ~ response.data',
-          response.data
-        );
+        // console.log(
+        //   '🚀 ~ file: index.jsx:36 ~ .then ~ response.data',
+        //   response.data
+        // );
         setTasks(response.data);
       })
       .catch(function (error) {
@@ -53,23 +55,25 @@ function Home() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTasks));
   }
 
-  // function addTask(taskText) {
-  //   setTasksAndSave([
-  //     ...tasks,
-  //     {
-  //       id: crypto.randomUUID(),
-  //       title: taskText,
-  //       isComplete: false,
-  //     },
-  //   ]);
-  // }
-
   function addTask(taskText) {
+    let userLogged = JSON.parse(sessionStorage.user);
+
+    let headers = {
+      'Content-type': 'application/json; charset=UTF-8',
+      authorization: `bearer ${sessionStorage.getItem('token')}`,
+    };
+
     let newTask = axios
-      .post(`${urlBase}/tasks/`, {
-        task_text: taskText,
-        users_idusers: userLogged.idusers,
-      })
+      .post(
+        `${urlBase}/tasks/`,
+        {
+          task_text: taskText,
+          users_idusers: userLogged.idusers,
+        },
+        {
+          headers: headers,
+        }
+      )
       .then(function (response) {
         console.log(response);
       })
@@ -81,21 +85,60 @@ function Home() {
   }
 
   function toggleTaskCompletedById(taskId) {
-    const newTasks = tasks.map((task) => {
-      if (task.id === taskId) {
-        return {
-          ...task,
-          isComplete: !task.isComplete,
-        };
-      }
-      return task;
+    let headers = {
+      'Content-type': 'application/json; charset=UTF-8',
+      authorization: `bearer ${sessionStorage.getItem('token')}`,
+    };
+
+    let taskToToggle = tasks.find((task) => {
+      return task.idtasks == taskId;
     });
-    setTasksAndSave(newTasks);
+
+    taskToToggle.task_done == 0
+      ? (taskToToggle.task_done = 1)
+      : (taskToToggle.task_done = 0);
+
+    let toggleTask = axios
+      .post(
+        `${urlBase}/tasks/done`,
+        {
+          ...taskToToggle,
+        },
+        {
+          headers: headers,
+        }
+      )
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   function deleteTaskById(taskId) {
-    const newTasks = tasks.filter((task) => task.id !== taskId);
-    setTasksAndSave(newTasks);
+    let headers = {
+      'Content-type': 'application/json; charset=UTF-8',
+      authorization: `bearer ${sessionStorage.getItem('token')}`,
+    };
+
+    let deletedTask = axios
+      .post(
+        `${urlBase}/tasks/delete`,
+        {
+          idtasks: taskId,
+        },
+        {
+          headers: headers,
+        }
+      )
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    loadSavedTasks();
   }
 
   return (

@@ -11,28 +11,44 @@ const controller = {
         if (tasks === null) {
             console.log('Not found!');
         }
-        console.log(req.user);
-
         res.send(tasks);
     },
     store: async (req, res) => {
-        let { taskText } = req.body;
+        let { task_text, users_idusers } = req.body;
 
-        const task = await Task.create({});
+        const task = await Tasks.create({
+            task_text,
+            users_idusers,
+        });
         return res.status(201).json();
 
     },
     delete: async (req, res) => {
+        idTask = req.body.idtasks;
+        const taskDeleted = await Tasks.findByPk({
+            where: {
+                idtasks: idTask
+            },
+        });
 
+        await taskDeleted.destroy();
+
+        return res.status(200).json();
     },
+
     update: async (req, res) => {
 
     },
-    updateDone: async (req, res) => {
-
-    },
-    updateUndone: async (req, res) => {
-
+    updateDoneUndone: async (req, res) => {
+        let taskToggle = req.body;
+        const taskToToggle = await Tasks.update({
+            task_done: taskToggle.task_done,
+        }, {
+            where: {
+                idtasks: taskToggle.idtasks,
+            }
+        })
+        return res.status(201).json();
     }
 }
 
