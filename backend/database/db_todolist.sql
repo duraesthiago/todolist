@@ -33,7 +33,7 @@ CREATE TABLE `tasks` (
   UNIQUE KEY `idtasks_UNIQUE` (`idtasks`),
   KEY `fk_tasks_users_idx` (`users_idusers`),
   CONSTRAINT `fk_tasks_users` FOREIGN KEY (`users_idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `tasks` (
 
 LOCK TABLES `tasks` WRITE;
 /*!40000 ALTER TABLE `tasks` DISABLE KEYS */;
-INSERT INTO `tasks` VALUES (1,'Esse é um teste',1,0),(13,'1234',2,0),(18,'123',2,0),(35,'resre',1,1);
+INSERT INTO `tasks` VALUES (13,'1234',2,0),(18,'123',2,0),(53,'Esse é um teste',1,0);
 /*!40000 ALTER TABLE `tasks` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,4 +82,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-20 16:06:05
+-- Dump completed on 2023-01-24 16:11:39
