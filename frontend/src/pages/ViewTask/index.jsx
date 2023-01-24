@@ -6,16 +6,14 @@ import {
   Link,
   useLocation,
 } from 'react-router-dom';
-import { Login } from '../Login';
 import { Header } from '../../components/Header';
 import { Tasks } from '../../components/Tasks';
-import { CreateUser } from '../CreateUser';
 import axios from 'axios';
 
 const LOCAL_STORAGE_KEY = 'todo:savedTasks';
 const urlBase = 'http://localhost:3000';
 
-function Home() {
+export function ViewTask() {
   const [tasks, setTasks] = useState([]);
 
   function loadSavedTasks() {
@@ -24,9 +22,7 @@ function Home() {
       authorization: `bearer ${sessionStorage.getItem('token')}`,
     };
 
-    let userLogged = sessionStorage.user
-      ? JSON.parse(sessionStorage.user)
-      : '';
+    let userLogged = JSON.parse(sessionStorage.user);
 
     const savedTasks = axios
       .get(`${urlBase}/tasks/${userLogged.idusers}`, {
@@ -49,7 +45,7 @@ function Home() {
 
   function setTasksAndSave(newTasks) {
     setTasks(newTasks);
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTasks));
+    //localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTasks));
   }
 
   function addTask(taskText) {
@@ -72,9 +68,7 @@ function Home() {
         }
       )
       .then(function (response) {
-        setTasksAndSave([...tasks, newTask]);
-        loadSavedTasks();
-        console.log(response);
+        setTasksAndSave([...tasks, response.data.task]);
       })
       .catch(function (error) {
         console.log(error);
@@ -106,7 +100,7 @@ function Home() {
         }
       )
       .then(function (response) {
-        console.log(response);
+        //console.log(response);
         loadSavedTasks();
       })
       .catch(function (error) {
@@ -131,7 +125,7 @@ function Home() {
         }
       )
       .then(function (response) {
-        console.log(response);
+        //console.log(response);
         loadSavedTasks();
       })
       .catch(function (error) {
@@ -140,26 +134,13 @@ function Home() {
   }
 
   return (
-    <Router>
-      <Routes>
-        <Route exact path="/" element={<Login />}></Route>
-        <Route
-          path="/task"
-          element={
-            <>
-              <Header onAddTask={addTask} />
-              <Tasks
-                tasks={tasks}
-                onComplete={toggleTaskCompletedById}
-                onDelete={deleteTaskById}
-              />
-            </>
-          }
-        ></Route>
-        <Route path="/createUser" element={<CreateUser />}></Route>
-      </Routes>
-    </Router>
+    <>
+      <Header onAddTask={addTask} />
+      <Tasks
+        tasks={tasks}
+        onComplete={toggleTaskCompletedById}
+        onDelete={deleteTaskById}
+      />
+    </>
   );
 }
-
-export default Home;

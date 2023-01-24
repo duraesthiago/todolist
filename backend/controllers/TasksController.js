@@ -20,7 +20,7 @@ const controller = {
             task_text,
             users_idusers,
         });
-        return res.status(201).json();
+        return res.status(201).json({ task });
 
     },
     delete: async (req, res) => {
@@ -44,7 +44,7 @@ const controller = {
                 idtasks: taskToggle.idtasks,
             }
         })
-        return res.status(201).json();
+        return res.status(201).json({ taskToToggle });
     }
 }
 
