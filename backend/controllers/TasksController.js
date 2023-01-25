@@ -32,9 +32,6 @@ const controller = {
         return res.status(200).json();
     },
 
-    update: async (req, res) => {
-
-    },
     updateDoneUndone: async (req, res) => {
         let taskToggle = req.body;
         const taskToToggle = await Tasks.update({

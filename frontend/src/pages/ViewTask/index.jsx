@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import { Header } from '../../components/Header';
 import { Tasks } from '../../components/Tasks';
-import { Menu } from '../../components/BottonMenu';
+import { ExitButton } from '../../components/ExitButton';
 import axios from 'axios';
 
 const LOCAL_STORAGE_KEY = 'todo:savedTasks';
@@ -142,7 +142,7 @@ export function ViewTask() {
         onComplete={toggleTaskCompletedById}
         onDelete={deleteTaskById}
       />
-      <Menu />
+      <ExitButton />
     </>
   );
 }
