@@ -1,17 +1,9 @@
 import { useEffect, useState } from 'react';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  useLocation,
-} from 'react-router-dom';
 import { Header } from '../../components/Header';
 import { Tasks } from '../../components/Tasks';
 import { ExitButton } from '../../components/ExitButton';
 import axios from 'axios';
 
-const LOCAL_STORAGE_KEY = 'todo:savedTasks';
 const urlBase = 'http://localhost:3000';
 
 export function ViewTask() {
@@ -20,6 +12,7 @@ export function ViewTask() {
   function loadSavedTasks() {
     let headers = {
       'Content-type': 'application/json; charset=UTF-8',
+      'Access-Control-Allow-Origin': '*',
       authorization: `bearer ${sessionStorage.getItem('token')}`,
     };
 
@@ -54,6 +47,7 @@ export function ViewTask() {
 
     let headers = {
       'Content-type': 'application/json; charset=UTF-8',
+      'Access-Control-Allow-Origin': '*',
       authorization: `bearer ${sessionStorage.getItem('token')}`,
     };
 
@@ -79,6 +73,7 @@ export function ViewTask() {
   function toggleTaskCompletedById(taskId) {
     let headers = {
       'Content-type': 'application/json; charset=UTF-8',
+      'Access-Control-Allow-Origin': '*',
       authorization: `bearer ${sessionStorage.getItem('token')}`,
     };
 
@@ -112,6 +107,7 @@ export function ViewTask() {
   function deleteTaskById(taskId) {
     let headers = {
       'Content-type': 'application/json; charset=UTF-8',
+      'Access-Control-Allow-Origin': '*',
       authorization: `bearer ${sessionStorage.getItem('token')}`,
     };
 

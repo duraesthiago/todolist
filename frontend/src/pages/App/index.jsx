@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -8,13 +7,7 @@ import {
 } from 'react-router-dom';
 import { Login } from '../Login';
 import { ViewTask } from '../ViewTask';
-import { Header } from '../../components/Header';
-import { Tasks } from '../../components/Tasks';
 import { CreateUser } from '../CreateUser';
-import axios from 'axios';
-
-const LOCAL_STORAGE_KEY = 'todo:savedTasks';
-const urlBase = 'http://localhost:3000';
 
 function App() {
   return (

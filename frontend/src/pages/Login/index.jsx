@@ -11,6 +11,12 @@ export function Login() {
 
   // Initial Definitions
   const urlBase = 'http://localhost:3000/auth/login';
+  const headers = {
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      'Access-Control-Allow-Origin': '*',
+    },
+  };
   const intialValues = { email: '', password: '' };
 
   const [formValues, setFormValues] = useState(intialValues);
@@ -19,10 +25,14 @@ export function Login() {
 
   const submit = () => {
     let responseLogin = axios
-      .post(urlBase, {
-        email: formValues.email,
-        password: formValues.password,
-      })
+      .post(
+        urlBase,
+        {
+          email: formValues.email,
+          password: formValues.password,
+        },
+        headers
+      )
       .then(function (response) {
         switch (response.status) {
           case 200:

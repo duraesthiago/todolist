@@ -11,6 +11,12 @@ export function CreateUser() {
 
   // Initial Definitions
   const urlBase = 'http://localhost:3000/auth/';
+  const headers = {
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      'Access-Control-Allow-Origin': '*',
+    },
+  };
   const intialValues = { email: '', password: '' };
 
   const [formValues, setFormValues] = useState(intialValues);
@@ -24,7 +30,7 @@ export function CreateUser() {
 
   const submit = async () => {
     let response = await axios
-      .post(urlBase, {
+      .post(urlBase, headers, {
         name: formValues.name,
         email: formValues.email,
         password: formValues.password,
