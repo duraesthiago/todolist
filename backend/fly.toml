@@ -1,4 +1,4 @@
-# fly.toml file generated for todone-api on 2023-01-26T09:34:30-03:00
+# fly.toml file generated for todone-api on 2023-01-26T10:58:53-03:00
 
 app = "todone-api"
 kill_signal = "SIGINT"
