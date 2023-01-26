@@ -7,7 +7,7 @@ const cors = require('cors');
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const tasksRouter = require('./routes/tasks');
-const CheckToken = require('./middlewares/checkToken');
+const CheckToken = require('./middlewares/CheckToken');
 const AuthToken = require('./middlewares/AuthToken');
 
 const app = express();
