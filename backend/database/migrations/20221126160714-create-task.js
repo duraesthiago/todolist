@@ -3,15 +3,12 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Tasks', {
-      idtask: {
+      idtasks: {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
       task_text: {
-        type: Sequelize.STRING
-      },
-      user_id: {
         type: Sequelize.STRING
       },
       task_done: {
