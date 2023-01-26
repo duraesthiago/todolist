@@ -4,7 +4,7 @@ import { Tasks } from '../../components/Tasks';
 import { ExitButton } from '../../components/ExitButton';
 import axios from 'axios';
 
-const urlBase = 'http://localhost:3000';
+const urlBase = 'https://todone-api.fly.dev';
 
 export function ViewTask() {
   const [tasks, setTasks] = useState([]);

@@ -4,13 +4,11 @@ import logo from '../../assets/logo.svg';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const LOCAL_STORAGE_KEY = 'todo:users';
-
 export function Login() {
   const navigate = useNavigate();
 
   // Initial Definitions
-  const urlBase = 'http://localhost:3000/auth/login';
+  const urlBase = 'https://todone-api.fly.dev/auth/login';
   const headers = {
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -36,17 +34,15 @@ export function Login() {
       .then(function (response) {
         switch (response.status) {
           case 200:
-            // Capturar o token respondido pelo servidor
+            // Get token
             let responseContent = response.data;
 
-            // Salvar o token (sessionStorage)
+            // Save token (sessionStorage)
             sessionStorage.setItem('token', responseContent.token);
             sessionStorage.setItem(
               'user',
               JSON.stringify(responseContent.userLogged)
             );
-
-            // Carregar página inicial
             navigate('/task');
             break;
 
