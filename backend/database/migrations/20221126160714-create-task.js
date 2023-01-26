@@ -12,7 +12,8 @@ module.exports = {
         type: Sequelize.STRING
       },
       task_done: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       }
     });
   },
