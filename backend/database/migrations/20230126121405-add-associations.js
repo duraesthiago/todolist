@@ -4,12 +4,12 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     return queryInterface.addColumn(
-      'Tasks',
+      'tasks',
       'users_idusers',
       {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Users',
+          model: 'users',
           key: 'idusers',
         }
       }
@@ -18,7 +18,7 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     return queryInterface.removeColumn(
-      'Tasks',
+      'tasks',
       'users_idusers'
     );
   }
