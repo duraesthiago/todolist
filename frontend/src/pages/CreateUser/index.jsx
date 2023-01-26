@@ -17,7 +17,7 @@ export function CreateUser() {
       'Access-Control-Allow-Origin': '*',
     },
   };
-  const intialValues = { email: '', password: '' };
+  const intialValues = { name: '', email: '', password: '' };
 
   const [formValues, setFormValues] = useState(intialValues);
   const [formErrors, setFormErrors] = useState({});
@@ -30,11 +30,15 @@ export function CreateUser() {
 
   const submit = async () => {
     let response = await axios
-      .post(urlBase, headers, {
-        name: formValues.name,
-        email: formValues.email,
-        password: formValues.password,
-      })
+      .post(
+        urlBase,
+        {
+          name: formValues.name,
+          email: formValues.email,
+          password: formValues.password,
+        },
+        headers
+      )
       .then(function (response) {
         let responseContent = response.data;
         // Salvar o token (sessionStorage)

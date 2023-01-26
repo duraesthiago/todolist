@@ -81,9 +81,9 @@ export function ViewTask() {
       return task.idtasks == taskId;
     });
 
-    taskToToggle.task_done == 0
-      ? (taskToToggle.task_done = 1)
-      : (taskToToggle.task_done = 0);
+    taskToToggle.task_done == false
+      ? (taskToToggle.task_done = true)
+      : (taskToToggle.task_done = false);
 
     let toggleTask = axios
       .post(
@@ -96,7 +96,7 @@ export function ViewTask() {
         }
       )
       .then(function (response) {
-        //console.log(response);
+        console.log(response);
         loadSavedTasks();
       })
       .catch(function (error) {
