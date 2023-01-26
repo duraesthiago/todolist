@@ -96,7 +96,6 @@ export function ViewTask() {
         }
       )
       .then(function (response) {
-        console.log(response);
         loadSavedTasks();
       })
       .catch(function (error) {
