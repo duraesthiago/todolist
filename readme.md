@@ -12,13 +12,13 @@ A aplicação consiste em uma lista de tarefa simples, onde cada usuário pode c
 
 ## Layout mobile
 
-![Mobile 1]() ![Mobile 2]() ![Mobile 3]()
+![Mobile 1](https://github.com/duraesthiago/todolist/blob/main/frontend/src/assets/rdm/mb01.png) ![Mobile 2](https://github.com/duraesthiago/todolist/blob/main/frontend/src/assets/rdm/mb02.png) ![Mobile 3](https://github.com/duraesthiago/todolist/blob/main/frontend/src/assets/rdm/mb03.png)
 
 ## Layout web
 
-![Web 1]()
+![Web 1](https://github.com/duraesthiago/todolist/blob/main/frontend/src/assets/rdm/dk01.png)
 
-![Web 2]()
+![Web 2](https://github.com/duraesthiago/todolist/blob/main/frontend/src/assets/rdm/dk02.png)
 
 # Tecnologias utilizadas
 
