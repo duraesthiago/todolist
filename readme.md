@@ -1,65 +1,60 @@
-# toDone
+# toDONE - todolist
 
-[![NPM](https://img.shields.io/npm/l/react)](https://github.com/devsuperior/sds1-wmazoni/blob/master/LICENSE)
+[![NPM](https://img.shields.io/npm/l/react)](https://github.com/duraesthiago/todolist.git)
 
 # Sobre o projeto
 
-https://wmazoni-sds1.netlify.app
+https://todone-cli.onrender.com
 
-Big Game Survey é uma aplicação full stack web e mobile construída durante a 1ª edição da **Semana DevSuperior** (#sds1), evento organizado pela [DevSuperior](https://devsuperior.com 'Site da DevSuperior').
+toDONE é uma aplicação simples, full stack web, criada durante estudo de React e NodeJS.
 
-A aplicação consiste em uma pesquisa de preferência de games, onde os dados são coletados no app mobile, e depois são listados no app web, que também apresenta um dashboard com gráficos baseados nestes dados.
+A aplicação consiste em uma lista de tarefa simples, onde cada usuário pode criar, marcar como concluída e deletar tarefas. Os dados do usuário e tarefas são consumidos através de uma API.
 
 ## Layout mobile
 
-![Mobile 1](https://github.com/acenelio/assets/raw/main/sds1/mobile1.png) ![Mobile 2](https://github.com/acenelio/assets/raw/main/sds1/mobile2.png)
+![Mobile 1]() ![Mobile 2]() ![Mobile 3]()
 
 ## Layout web
 
-![Web 1](https://github.com/acenelio/assets/raw/main/sds1/web1.png)
+![Web 1]()
 
-![Web 2](https://github.com/acenelio/assets/raw/main/sds1/web2.png)
-
-## Modelo conceitual
-
-![Modelo Conceitual](https://github.com/acenelio/assets/raw/main/sds1/modelo-conceitual.png)
+![Web 2]()
 
 # Tecnologias utilizadas
 
 ## Back end
 
-- Java
-- Spring Boot
-- JPA / Hibernate
-- Maven
+- NodeJS
+- Express
+- Sequelize
 
 ## Front end
 
-- HTML / CSS / JS / TypeScript
+- HTML / CSS / JS / JavaScript
 - ReactJS
-- React Native
-- Apex Charts
-- Expo
+- Vite
 
 ## Implantação em produção
 
-- Back end: Heroku
-- Front end web: Netlify
+- Back end: Fly.io
+- Front end web: Render.com
 - Banco de dados: Postgresql
 
 # Como executar o projeto
 
 ## Back end
 
-Pré-requisitos: Java 11
+Pré-requisitos: npm
 
 ```bash
 # clonar repositório
-git clone https://github.com/devsuperior/sds1-wmazoni
+git clone https://github.com/duraesthiago/todolist
 # entrar na pasta do projeto back end
 cd backend
+# instalar dependências
+npm install
 # executar o projeto
-./mvnw spring-boot:run
+npm start
 ```
 
 ## Front end web
@@ -68,17 +63,17 @@ Pré-requisitos: npm / yarn
 
 ```bash
 # clonar repositório
-git clone https://github.com/devsuperior/sds1-wmazoni
-# entrar na pasta do projeto front end web
-cd front-web
+git clone https://github.com/duraesthiago/todolist
+# entrar na pasta do projeto front end
+cd frontend
 # instalar dependências
-yarn install
+npm install
 # executar o projeto
-yarn start
+npm run dev
 ```
 
 # Autor
 
-Wellington Mazoni de Andrade
+Thiago Durães
 
-https://www.linkedin.com/in/wmazoni
+https://www.linkedin.com/in/duraesthiago
