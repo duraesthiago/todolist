@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './login.module.css';
 import logo from '../../assets/logo.svg';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export function Login() {
@@ -19,6 +19,7 @@ export function Login() {
 
   const [formValues, setFormValues] = useState(intialValues);
   const [formErrors, setFormErrors] = useState({});
+  const [responseErrors, setResponseErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const submit = () => {
@@ -46,21 +47,22 @@ export function Login() {
             navigate('/task');
             break;
 
-          case 409:
-            alert('E-mail já cadastrado.');
-            break;
-
-          case 422:
-            alert('Senha preenchida incorretamente.');
-            break;
-
           default:
             alert(`Erro inesperado: ${response.status}`);
             break;
         }
       })
       .catch(function (error) {
-        console.log(error);
+        let err = error.response.data.err;
+        switch (error.response.status) {
+          case 409:
+            setResponseErrors({ msg: err });
+            break;
+
+          default:
+            setResponseErrors({ msg: 'Erro inesperado' });
+            break;
+        }
       });
   };
 
@@ -75,6 +77,10 @@ export function Login() {
     e.preventDefault();
     setFormErrors(validate(formValues));
     setIsSubmitting(true);
+  };
+
+  const handleCreate = (e) => {
+    e.preventDefault();
   };
 
   //form validation handler
@@ -108,10 +114,14 @@ export function Login() {
       <h1 className={styles.formInput}>
         Faça login para continuar...
       </h1>
-      {Object.keys(formErrors).length === 0 && isSubmitting && (
-        <span>Login ok!</span>
+      {Object.keys(responseErrors).length !== 0 && (
+        <span>{responseErrors.msg}</span>
       )}
-      <form onSubmit={handleSubmit} noValidate>
+      <form
+        onSubmit={handleSubmit}
+        noValidate
+        className={styles.formLogin}
+      >
         <div className={styles.formInput}>
           <label htmlFor="email"></label>
           <input
@@ -138,15 +148,13 @@ export function Login() {
           {formErrors.password && <span>{formErrors.password}</span>}
         </div>
         <div className={styles.formInput}>
-          <h3>
-            Não possui um usuário?{' '}
-            <a href="/createUser">Registre-se aqui!</a>
-          </h3>
-        </div>
-        <div className={styles.formInput}>
           <button type="submit">Entrar</button>
         </div>
       </form>
+      <div className={styles.formInput}>
+        <h3>Não possui um usuário?</h3>
+        <Link to="/createUser">Registre-se aqui!</Link>
+      </div>
     </div>
   );
 }

@@ -8,8 +8,12 @@ export function Header({ onAddTask }) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    onAddTask(taskText);
-    setTaskText('');
+    if (taskText) {
+      onAddTask(taskText);
+      setTaskText('');
+    } else {
+      setTaskText('');
+    }
   }
 
   function onChangeTaskText(event) {

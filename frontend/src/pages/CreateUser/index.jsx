@@ -75,6 +75,10 @@ export function CreateUser() {
     let errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
+    if (!values.name) {
+      errors.name = 'Esse campo não pode ser vazio!';
+    }
+
     if (!values.email) {
       errors.email = 'Digite um e-mail válido';
     } else if (!regex.test(values.email)) {
@@ -103,7 +107,11 @@ export function CreateUser() {
       {Object.keys(formErrors).length === 0 && isSubmitting && (
         <span>Login ok!</span>
       )}
-      <form onSubmit={handleSubmit} noValidate>
+      <form
+        onSubmit={handleSubmit}
+        noValidate
+        className={styles.formCreateUser}
+      >
         <div className={styles.formInput}>
           <label htmlFor="name"></label>
           <input

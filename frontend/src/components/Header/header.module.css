@@ -4,12 +4,31 @@
   align-items: center;
   justify-content: center;
   height: 200px;
-  position: relative;
+  position: sticky;
+  top: 0;
 }
 
 .header img {
   margin-top: 2%;
-  width: 30%;
+  width: 60%;
+}
+
+@media (min-width: 600px) {
+  .header img {
+    max-width: 45%;
+  }
+}
+
+@media (min-width: 900px) {
+  .header img {
+    max-width: 30%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .header img {
+    max-width: 10%;
+  }
 }
 
 .newTaskForm {

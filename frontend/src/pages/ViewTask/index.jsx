@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Header } from '../../components/Header';
 import { Tasks } from '../../components/Tasks';
-import { ExitButton } from '../../components/ExitButton';
 import axios from 'axios';
 
 const urlBase = 'https://todone-api.fly.dev';
@@ -70,7 +69,7 @@ export function ViewTask() {
       });
   }
 
-  function toggleTaskCompletedById(taskId) {
+  async function toggleTaskCompletedById(taskId) {
     let headers = {
       'Content-type': 'application/json; charset=UTF-8',
       'Access-Control-Allow-Origin': '*',
@@ -78,6 +77,10 @@ export function ViewTask() {
     };
 
     let taskToToggle = tasks.find((task) => {
+      return task.idtasks == taskId;
+    });
+
+    let indexToToggle = tasks.findIndex((task) => {
       return task.idtasks == taskId;
     });
 
@@ -96,21 +99,26 @@ export function ViewTask() {
         }
       )
       .then(function (response) {
-        loadSavedTasks();
+        tasks[indexToToggle].task_done = taskToToggle.task_done;
+        setTasksAndSave([...tasks]);
       })
       .catch(function (error) {
         console.log(error);
       });
   }
 
-  function deleteTaskById(taskId) {
+  async function deleteTaskById(taskId) {
     let headers = {
       'Content-type': 'application/json; charset=UTF-8',
       'Access-Control-Allow-Origin': '*',
       authorization: `bearer ${sessionStorage.getItem('token')}`,
     };
 
-    let deletedTask = axios
+    let newTasks = tasks.filter((task) => {
+      return task.idtasks != taskId;
+    });
+
+    let deletedTask = await axios
       .post(
         `${urlBase}/tasks/delete`,
         {
@@ -121,8 +129,7 @@ export function ViewTask() {
         }
       )
       .then(function (response) {
-        //console.log(response);
-        loadSavedTasks();
+        setTasksAndSave(newTasks);
       })
       .catch(function (error) {
         console.log(error);
@@ -137,7 +144,6 @@ export function ViewTask() {
         onComplete={toggleTaskCompletedById}
         onDelete={deleteTaskById}
       />
-      <ExitButton />
     </>
   );
 }
